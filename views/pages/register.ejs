@@ -10,8 +10,102 @@
 
 
 <div class="container-fluid">
-    <p>register</p>
+    <h1>Registraion</h1>
 </div>
+
+<form class="needs-validation" novalidate id="registrationForm" action="/registerUser" method="post">
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" placeholder="Name" value="W.A. Mozart" required>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    </div>
+       <div class="col-md-4 mb-3">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="email" value="piano-all-day@gmail.com" required>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    </div>
+  </div>
+  <br/>
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="password" required>
+      <div class="invalid-feedback">
+        Please provide a valid password.
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+      <div class="invalid-feedback">
+        Please confirm your passowrd.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+  </br>
+    <div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+            <label class="custom-control-label" for="customRadioInline1">I'm a teacher</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+            <label class="custom-control-label" for="customRadioInline2">I'm a student</label>
+        </div>
+    </div>
+    </br>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+      <label class="form-check-label" for="invalidCheck">
+        I hereby acknowledge that the unauthorized distribution of copyrighted music is strictly illegal and that any music or documents shared 
+        </br>
+        on this site must lie in the public domain. Please click <a href="https://nafme.org/my-classroom/copyright/copyright-law-what-music-teachers-need-to-know" target="_blank">here</a>
+        for more information on copyright laws from the National Associate of Music Education
+      </label>
+      <div class="invalid-feedback">
+        You must agree before submitting.
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary" type="submit">Submit form</button>
+</form>
+
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+
+document.getElementById('registrationForm').onsubmit = function() {
+    // this (keyword) refers to form to which onsubmit attached
+    // 'ship' is name of radio button group
+    var val = getRadioVal(this, 'ship');
+    // display value obtained
+    alert(val);
+    // more code here ...
+}
+
+</script>
 
 
 <footer>

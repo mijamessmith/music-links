@@ -7,14 +7,14 @@ exports.dbConfig = {
     option: {
         encrypt: false
     },
-    database: 'brosunite'
+    database: 'music_links'
 }
 
 exports.mysqlConfig = {
     host: "localhost",
     user: "mjsmith",
     password: "Smikesmit21",
-    database: "brosunite"
+    database: 'music_links'
 }
 
 exports.mysqlPoolConfig = {
@@ -22,5 +22,5 @@ exports.mysqlPoolConfig = {
     host: 'localhost',
     user: 'mjsmith',
     password: 'Smikesmit21',
-    database: 'brosunite'
+    database: 'music_links'
 };

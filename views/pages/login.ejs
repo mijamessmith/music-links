@@ -3,25 +3,32 @@
 <head>
 <%- include('../partials/head') %>
 </head>
-<body class="container">
+<body>
 
 <header>
+<%- include('../partials/header') %>
 </header>
 
-<div class="container-fluid">
-    <p>Login</p>
-</div>
+<div class="container">
+
+<div class="jumbotron">
+    <h4>Login</h4>
+    <br/>
 <form id="login" method="post" action="/loginUser">
   <div class="form-group">
-    <label for="formGroupExampleInput">Example label</label>
-    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    <label for="teacherEmail">Enter registered email</label>
+    <input type="text" class="form-control" name="teacherEmail" placeholder="I_am_the_best_music_teacher@notAOL.com" required>
   </div>
   <div class="form-group">
-    <label for="formGroupExampleInput2">Another label</label>
-    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="">
+    <label for="teacherPassword">Enter password</label>
+    <input type="password" class="form-control" name="teacherPassword" placeholder="symphony123" required>
   </div>
    <button type="submit" class="btn btn-primary">Sign in</button>
+   <%var message%>
+   <h5><%= message %></h5>
 </form>
+</div>
+</div>
 
 <footer>
 

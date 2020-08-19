@@ -1,0 +1,25 @@
+#spacer {
+    padding: 2em;
+}
+
+.smallSpacer{
+    padding: .5em;
+}
+
+.postSpacer {
+    padding-bottom: 3em;
+}
+
+#postTitle {
+    padding-left: 1em;
+}
+
+.postDescription {
+    padding-left: 5em;
+    margin-bottom: .5em;
+    margin-top: 0px;
+}
+
+.postLink {
+    padding-left: 5em;
+}

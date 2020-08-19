@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
 <%- include('../partials/head') %>
+  <link rel="stylesheet" href="../css/teachers.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.5/dist/css/uikit.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.5/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.5/dist/js/uikit-icons.min.js"></script>
 </head>
 <body>
 
@@ -13,20 +17,26 @@
 
 <div class="jumbotron">
     <h5>Enter your teacher's email</h5>
-    <form action="/student" method="post" id="studentLogin">
+    <form id="studentLogin">
   <div class="form-group">
     <label for="teacherEmail"></label>
-    <input type="email" class="form-control" id="teacherEmail" aria-describedby="emailHelp" placeholder="gilbert_kalish_fanclub@pianostudent.com">
+    <input type="email" class="form-control" name="teacherEmail" id="teacherEmail" aria-describedby="emailHelp" placeholder="gilbert_kalish_fanclub@pianostudent.com">
      <small id="emailHelp" class="form-text text-muted"></small>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary" id="postBtn">Submit</button>
 </form>
 </div>
 
+<div id="postDiv">
+        
+        </div>
+
 </div>
+
 <footer>
 
 </footer>
+<script type="text/javascript" src="scripts/student-script.js"></script>
 
 </body>
 </html>

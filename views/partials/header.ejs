@@ -1,0 +1,80 @@
+<style>
+  .pure-menu {
+      background: #b4ebfd;
+  }
+  .pure-menu-disabled, .pure-menu-heading, .pure-menu-link {
+      padding: 0em 1.5em;
+  }
+
+  .pure-menu-horizontal {
+
+  }
+  
+  #logoutBtn{
+    position: relative;
+    float: right;
+    left: 70em;
+    color: black;
+  }
+
+
+  #logodiv {
+    display: inline;
+    max-width: 30%;
+    height: 30%;
+    margin: 0px;
+    padding-left: .5em;
+    line-height: 1;
+  }
+  
+  #logo {
+    max-width: 4em;
+    height: auto;
+    margin: 0px;
+    line-height: 1;
+  }
+  #headerpadding {
+    height: 3.5em;
+  }  
+</style>
+<div class="pure-menu pure-menu-horizontal">
+<div class="container" id="logodiv">
+<img id="logo" src="musiclinkslogo.png"></img>
+</div>
+    <ul class="pure-menu-list">
+        <li class="pure-menu-item">
+            <a href="http://localhost:3000/students" class="pure-menu-link">Students</a>
+        </li>
+        <li class="pure-menu-item">
+            <a href="http://localhost:3000/login" class="pure-menu-link">Teachers</a>
+        </li>
+        <li class="pure-menu-item" id="logout">
+            <a href="http://localhost:3000" id="logoutBtn">Logout</a>
+        </li>
+    </ul>
+</div>
+<div id="headerpadding">
+</div>
+
+<script>
+    const logout = document.querySelector("#logoutBtn");
+
+    logout.addEventListener("click", function (event) {
+        event.preventDefault()
+        console.log("Logout Btn has been clicked")
+
+        let ajaxReq; //sometimes declaring and initializing has issues
+        ajaxReq = $.ajax({
+         url: '/logout', //name of the route. If we want more params we use & to separate.
+            type: 'GET',
+            datatype: "json",
+         data: "" //we're not sending
+         });
+
+        ajaxReq.done(function (data) {
+           if (data !== undefined) {
+            window.location.replace(`http://localhost:3000`); 
+            }
+           });
+        });
+</script>

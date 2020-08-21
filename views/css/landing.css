@@ -1,0 +1,74 @@
+.subcontainer {
+    margin-left: 2em;
+    padding-top: 1em;
+    margin-bottom: 0;
+}
+
+.subcontainer-small {
+    margin-left: 2em;
+}
+
+
+.pointer:hover{
+    text-decoration: none;
+    background-color: #E9ECEF;
+}
+
+.pointer{
+    letter-spacing: .80px;
+}
+
+.pointerNew {
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.pointerNew:hover {
+    text-decoration: none;
+    background-color: #E9ECEF;
+}
+
+.title {
+    letter-spacing: 3px;
+    font-weight: 700;
+    margin-top: .5em;
+}
+
+.subtitle {
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    font-size: larger;
+}
+
+.subtitle-smaller {
+    letter-spacing: .6px;
+    font-weight: 500;
+}
+
+#bottomSub {
+    margin-bottom:8px;
+}
+
+.subtitleNew {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 0;
+    padding-top: 10px;
+}
+
+.small-breaker{
+
+}
+
+.information {
+
+}
+
+.tiny-spacer{
+    line-height: 10px;
+}
+
+.jumbotron {
+    padding-top: 2rem;
+}

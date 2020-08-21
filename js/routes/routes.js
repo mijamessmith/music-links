@@ -120,16 +120,17 @@ router.get("/getPostsForStudents", (req, res, next) => {
 
 
 
-router.post("/registerUser", (req, res, next) => {
-    
+router.post("/registerUser", (req, res, next) => {   
+ 
     return db.pool.query(`INSERT INTO user_data (name, email, password) 
     VALUES ("${req.body.name}", "${req.body.email}", "${req.body.password}")`, (err, result) => {
+            console.log(req.body)
             if (err) throw err;
             else {
-                res.render("pages/teachers");
+                res.render("pages/login");
             }
-    });
-});
+        });
+})
 
 
 router.get("/logout", isLoggedIn, (req, res, next) => {

@@ -19,7 +19,9 @@ $(document).ready(() => {
                 div = document.createElement('div');
                 $(div).addClass("uk-card uk-card-default").html(`<h3 class="uk-heading-bullet" id="postTitle">${post.title}</h3>`);
                 $(div).append(`<h5 class="postDescription">${post.description}</h5>`);
-                $(div).append(`<a class="postLink" target="_black" href="${post.link}"></a>`);     
+                $(div).append(`<a class="postLink" target="_black" href="${post.link}">${post.link}</a>`);
+                $(div).append(`<div class="preview"><object class="thumbnail" type="text/html" data="${post.link}" 
+                width="700px" height="250px" style="overflow:auto"></object></div>`); 
                 $("#postDiv").append(div);
                 $("#postDiv").append(spacer);
             })

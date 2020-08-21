@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <%- include('../partials/head') %>
+    <link rel="stylesheet" href="../css/landing.css" crossorigin="anonymous">
 </head>
 <body>
     <header>
@@ -10,18 +11,23 @@
     <div class="container">
      <main>
         <div class="jumbotron">
-            <h1>Music Links</h1>
-            <p>A space for organizing and sharing sheet music</p>
-            <a href="http://localhost:3000/students">Students</a>       
-            <br/>
-            <a href="http://localhost:3000/login">Teachers</a>    
-            <p>New to music-links?<p>
-            <a href="http://localhost:3000/register">Create a new account</a>
+            <h1 class="title">Music Links</h1>
+            <p class="subtitle">A space for organizing and sharing sheet music</p>
+            <div class="subcontainer">
+                <p class="subtitle-smaller">Click if you are a <a class="pointer" href="http://localhost:3000/students">Student</a></p>       
+                <div class="small-breaker"></div>
+                <p class="subtitle-smaller" id="bottomSub">Click if you are a <a class="pointer" href="http://localhost:3000/login">Teacher</a></p>   
+            </div>
+            <p class="subtitleNew">New to music-links?<p>
+            <div class="subcontainer-small">
+                <a class="pointerNew" href="http://localhost:3000/register">Create a new account</a>
+            </div>
         </div>
     </main>
 
         <div class="container-fluid">
-            <p>Information About the page</p>
+            <h1 class="title">About Music Links</h1>
+            <p class="about"></p>
         </div>
     </div>
     

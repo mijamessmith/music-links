@@ -10,16 +10,71 @@
     padding-bottom: 3em;
 }
 
-.postTitle {
+#postTitle {
+    padding-top: .75em;
     padding-left: 1em;
+    letter-spacing: 3px;
 }
 
 .postDescription {
-    padding-left: 5em;
+    margin-left: .5em !important;
     margin-bottom: .5em;
     margin-top: 0px;
+    font-size: 16.5px;
+    letter-spacing: 1px;
 }
 
 .postLink {
-    padding-left: 5em;
+    /*padding-left: 5em;*/
+}
+
+.preview {
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, .3), inset -5px -5px 10px rgba(0, 0, 0, .2);
+    width: 40%;
+    height: auto;
+    margin-left: auto;
+    margin-right: 10px;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    border-top-color: rgb(238, 238, 238);
+    border-top-style: solid;
+    border-top-width: 15px;
+    border-right-color: rgb(238, 238, 238);
+    border-right-style: solid;
+    border-right-width: 15px;
+    border-bottom-color: rgb(238, 238, 238);
+    border-bottom-style: solid;
+    border-bottom-width: 15px;
+    border-left-color: rgb(238, 238, 238);
+    border-left-style: solid;
+    border-left-width: 15px;
+}
+
+#enterEmail {
+    margin-bottom: 0;
+}
+
+.jumbotron {
+    padding-left: 4em;
+}
+
+.left-grid{   
+    margin-left: 2em !important; 
+}
+
+.link-to-music {
+    margin-top: .5em;
+    margin-bottom: 0 !important;
+}
+
+.normal:hover {
+  
+    text-decoration: none;
+}
+
+.normal {
+    
+    background-color: unset !important;
+    color: unset !important;
 }

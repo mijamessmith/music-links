@@ -2,7 +2,7 @@
     padding: 2em;
 }
 
-.smallSpacer{
+.smallSpacer {
     padding: .5em;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .postDescription {
-    padding-left: 5em;
+    margin-left: .5em !important;
     margin-bottom: .5em;
     margin-top: 0px;
     font-size: 16.5px;
@@ -25,7 +25,7 @@
 }
 
 .postLink {
-    padding-left: 5em;
+    /*padding-left: 5em;*/
 }
 
 .preview {
@@ -51,6 +51,34 @@
     border-left-width: 15px;
 }
 
-.thumbnail {
+#enterEmail {
+    margin-bottom: 0;
+}
 
+.jumbotron {
+    padding-left: 4em;
+}
+
+.left-grid {
+    margin-left: 2em !important;
+}
+
+.link-to-music {
+    margin-top: .5em;
+    margin-bottom: 0 !important;
+}
+
+.normal:hover {
+    text-decoration: none;
+}
+
+.normal {
+    background-color: unset !important;
+    color: unset !important;
+}
+
+.btn-danger {
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }

@@ -99,6 +99,21 @@ router.get("/getPosts", (req, res, next) => {
     }
 })
 
+router.get("/deletePost", (req, res, next) => {
+    try {
+        db.pool.query(`DELETE from posts WHERE link = "${req.query.link}" AND email = "${req.session.currentUser.email}"`, (error, results) => {
+            if (error) {
+                console.log(error);
+                res.send("no");
+            } else {
+                res.send("yes")
+            }
+        })
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 router.get("/getPostsForStudents", (req, res, next) => {
     try {
         db.pool.query(`SELECT * FROM posts WHERE email = "${req.query.email}"`, (error, results) => {

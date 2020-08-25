@@ -20,19 +20,19 @@
         
         <div class="container-fluid">
         <div id="spacer"></div>
-        <h3>New Post</h3>
+        <h3 id="newPost">New Post</h3>
         <div class="smallSpacer"></div>
-            <form class="pure-form" method="post" action="/addMusic">
+            <form class="pure-form" method="post" action="/teachers">
                 <fieldset class="pure-group">
                     <input type="text" class="pure-input-1-2" name="postTitle" placeholder="Title of post" required />                  
                 </fieldset>
                 <fieldset class="pure-group">
-                    <input type="url" class="pure-input-1-2" name="link" placeholder="url of music" required />
+                    <input type="url" class="pure-input-1-2" name="link" placeholder="http://www." required />
                     <textarea class="pure-input-1-2" placeholder="Description of music" name="description" required></textarea>
                 </fieldset>
                 <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">Add music to profile</button>
                  <br/>
-                 <h3>
+                 <h3 id="bottomMessage">
             <% var message %>
             <%= message %>
             <h3>

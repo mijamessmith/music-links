@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const db = require("../controller/db")
 
-//middleware for checking if teachers are logged in 
+//middleware functions
+
+// checking if teachers are logged in 
 
 isLoggedIn = function (req, res, next) {
     if (req.session.currentUser) {
@@ -17,6 +19,43 @@ alreadyLoggedIn = function (req, res, next) {
         res.redirect("/teachers")
     } else next()
 }
+
+//checking if a user is new or not
+
+isNewUser = function (req, res, next) {
+    var message;
+    try {
+        db.pool.query(`SELECT * FROM posts WHERE id = "${req.session.currentUser.id}"`, (error, results) => {
+            if (error) {
+                console.log(error);
+            } else if (results.length === 0) {
+                req.session.currentUser.messageForLoggingIn = "Welcome. To make your first music link, make a post below by copying a link to a PDF and adding a title and a description"
+                next();
+            } else if (results.length > 0) {
+                req.session.currentUser.messageForLoggingIn = `Welcome Back, ${req.session.currentUser.name}`    
+            }
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+isRegistered = function (req, res, next) {
+    try {
+        db.pool.query(`SELECT * FROM user_data WHERE email = "${req.body.email}"`, (error, results) => {
+            if (error) {
+                console.log(error);
+            } else if (results.length === 0) {
+                next();
+            } else if (results.length > 0) {
+                res.send("Email already registered");
+            }
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 
 router.get('/', function (req, res, next) {
@@ -42,7 +81,7 @@ router.post("/loginUser", async (req, res, next) => {
                 } else if (results.length > 0) {               
                     req.session.currentUser = results[0];  
                     console.log(req.session.currentUser, req.session.currentUserId)
-                    res.render("pages/teachers");
+                    res.redirect("/teachers");
                 }
             })
     } catch (error) {
@@ -58,6 +97,20 @@ router.get('/register', alreadyLoggedIn, function (req, res, next) {
     res.render('pages/register');
 });
 
+router.post("/registerUser", (req, res, next) => {
+
+    return db.pool.query(`INSERT INTO user_data (name, email, password) 
+    VALUES ("${req.body.name}", "${req.body.email}", "${req.body.password}")`, (err, result) => {
+        console.log(req.body)
+        if (err) throw err;
+        else {
+            res.render("pages/login", {message: `Welcome, ${req.body.name}. Login to access your new account`});
+        }
+    });
+})
+
+
+
 router.get('/students', function (req, res, next) {
     res.render('pages/students');
 });
@@ -66,11 +119,11 @@ router.get("/teachers", isLoggedIn, function (req, res, next) {
     res.render("pages/teachers");
 })
 
-router.post("/addMusic", isLoggedIn, function (req, res, next) {
+router.post("/teachers", isLoggedIn, function (req, res, next) {
     var message;
-    return db.pool.query(`INSERT INTO posts (id, description, link, title) 
+    return db.pool.query(`INSERT INTO posts (id, description, link, title, email) 
     VALUES
-    ("${req.session.currentUser.id}", "${req.body.description}", "${req.body.link}", "${req.body.postTitle}")`, (err, result) => {
+    ("${req.session.currentUser.id}", "${req.body.description}", "${req.body.link}", "${req.body.postTitle}", "${req.session.currentUser.email}")`, (err, result) => {
             if (err) throw err;
             else {
                 message = { message: "Successfully posted the music link" }
@@ -86,7 +139,7 @@ router.get("/getPosts", (req, res, next) => {
             if (error) {
                 console.log(error);
             } else if (results.length === 0) {
-                message = { message: "Make a post" }
+                message = { message: "Welcome. To make your first music link, make a post below by copying a link to a PDF and adding a title and a description" }
                 console.log(message);
                 res.render("pages/teachers", message)
             } else if (results.length > 0) {
@@ -135,17 +188,6 @@ router.get("/getPostsForStudents", (req, res, next) => {
 
 
 
-router.post("/registerUser", (req, res, next) => {   
- 
-    return db.pool.query(`INSERT INTO user_data (name, email, password) 
-    VALUES ("${req.body.name}", "${req.body.email}", "${req.body.password}")`, (err, result) => {
-            console.log(req.body)
-            if (err) throw err;
-            else {
-                res.render("pages/login");
-            }
-        });
-})
 
 
 router.get("/logout", isLoggedIn, (req, res, next) => {

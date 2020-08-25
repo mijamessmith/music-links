@@ -25,9 +25,9 @@
     <input type="password" class="form-control" name="teacherPassword" placeholder="symphony123" required>
   </div>
    <button type="submit" class="btn btn-primary">Sign in</button>
-   <h4 id="signup">Don't have an account, <a href="http://localhost:3000/register">Sign Up</a></h4>
+   <h4 id="signup">Don't have an account, <a id="signUpLink" href="http://localhost:3000/register">Sign Up</a></h4>
    <%var message%>
-   <h5><%= message %></h5>
+   <h5 id="bottomMessage"><%= message %></h5>
 </form>
 </div>
 </div>
@@ -35,6 +35,6 @@
 <footer>
 
 </footer>
-
+<script type="text/javascript" src="scripts/login-script.js"></script>
 </body>
 </html>

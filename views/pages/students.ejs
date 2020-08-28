@@ -10,28 +10,29 @@
 <body>
 
 <header>
- <%- include('../partials/header') %>
+<%- include('../partials/header') %>
 </header>
 
 <div class="container">
-
-<div class="jumbotron">
-    <h2 class="content-subhead">Welcome Students!</h2>
-    <h4 id="enterEmail">Enter your Teacher's Email Address</h4>
-    <form id="studentLogin">
-  <div class="form-group">
-    <label for="teacherEmail"></label>
-    <input type="email" class="form-control" name="teacherEmail" id="teacherEmail" aria-describedby="emailHelp" placeholder="teacher's email address">
-     <small id="emailHelp" class="form-text text-muted"></small>
-  </div>
-  <button type="submit" class="btn btn-primary" id="postBtn">Submit</button>
-</form>
-</div>
-
-<div id="postDiv">
-        
-        </div>
-
+   
+    <div class="jumbotron">
+        <h2 class="content-subhead">Welcome Students!</h2>
+        <h4 id="enterEmail">Enter your Teacher's Email Address</h4>
+        <form id="studentLogin">
+             <div class="form-group">
+                <label for="teacherEmail"></label>
+                <input type="email" class="form-control" name="teacherEmail" id="teacherEmail" aria-describedby="emailHelp" placeholder="teacher's email address">
+                <small id="emailHelp" class="form-text text-muted"></small>
+             </div>
+             <button type="submit" class="btn btn-primary" id="postBtn">Submit</button>
+        </form>
+    </div>   
+    <h3 id="bottomMessage">
+                <% var message %>
+                <%= message %>
+                </h3>        
+    <div id="postDiv"></div>
+    
 </div>
 
 <footer>

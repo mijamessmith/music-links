@@ -1,4 +1,6 @@
 const postBtn = document.querySelector("#studentLogin");
+const bottomMessage = document.querySelector("#bottomMessage");
+
 
 postBtn.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -13,6 +15,11 @@ postBtn.addEventListener("submit", (e) => {
 
     ajaxReq.done(function (data) {
         if (data) {
+            if (typeof data === "string") {
+                bottomMessage.textContent = data;
+                return;
+            } else 
+
             console.log("got the posts in the front end")
             let postCount = 0
             data.forEach((post) => {               

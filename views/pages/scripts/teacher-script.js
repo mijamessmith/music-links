@@ -3,11 +3,15 @@ const bottomMessage = document.querySelector("#bottomMessage")
 let msg = bottomMessage.textContent 
 
 const newPostMessage = document.querySelector("#newPost")
-
+const topMessage = document.querySelector("#topMessage");
 
 if (msg.indexOf("Welcome")) {
-    bottomMessage.className = "welcome-message"
+    topMessage.className = "welcome-message"
+    topMessage.textContent = msg;
+    bottomMessage.textContent = "";
 }
+
+
 
 
 

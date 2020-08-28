@@ -22,8 +22,17 @@ alreadyLoggedIn = function (req, res, next) {
 
 //checking if a user is new or not
 
-isNewUser = function (req, res, next) {
-    var message;
+loginMessage = function (req, res, next) {
+    if (req.session.currentUser && req.session.currentUser.messageAfterRegistering !== undefined) {
+        req.session.currentUser.message = req.session.currentUser.messageAfterRegistering;
+        delete req.session.currentUser.messageAfterRegistering;
+        next();
+    } else if (req.session.currentUser === undefined) {
+        next()
+    }
+}
+
+homeMessage = function (req, res, next) {
     try {
         db.pool.query(`SELECT * FROM posts WHERE id = "${req.session.currentUser.id}"`, (error, results) => {
             if (error) {
@@ -32,7 +41,8 @@ isNewUser = function (req, res, next) {
                 req.session.currentUser.messageForLoggingIn = "Welcome. To make your first music link, make a post below by copying a link to a PDF and adding a title and a description"
                 next();
             } else if (results.length > 0) {
-                req.session.currentUser.messageForLoggingIn = `Welcome Back, ${req.session.currentUser.name}`    
+                req.session.currentUser.messageForLoggingIn = `Welcome Back, ${req.session.currentUser.name}` 
+                next();
             }
         })
     } catch (error) {
@@ -42,13 +52,15 @@ isNewUser = function (req, res, next) {
 
 isRegistered = function (req, res, next) {
     try {
-        db.pool.query(`SELECT * FROM user_data WHERE email = "${req.body.email}"`, (error, results) => {
+        db.pool.query(`SELECT * FROM user_data WHERE email = "${req.body.email || req.query.email}"`, (error, results) => {
             if (error) {
                 console.log(error);
             } else if (results.length === 0) {
+                req.session.uniqueEmailForRegistration = true
                 next();
             } else if (results.length > 0) {
-                res.send("Email already registered");
+                req.session.uniqueEmailForRegistration = false
+                next();
             }
         })
     } catch (error) {
@@ -62,8 +74,12 @@ router.get('/', function (req, res, next) {
     res.render('pages/landing');
 });
 
-router.get('/login', alreadyLoggedIn, function (req, res, next) {
-    res.render('pages/login');
+router.get('/login', alreadyLoggedIn, loginMessage, function (req, res, next) {
+    var message = false
+    if (req.session.message) {
+         message = req.session.message
+    }
+    res.render('pages/login', {message: message})
 });
 
 router.post("/loginUser", async (req, res, next) => {
@@ -94,29 +110,67 @@ router.post("/loginUser", async (req, res, next) => {
 
 
 router.get('/register', alreadyLoggedIn, function (req, res, next) {
-    res.render('pages/register');
+    var message;
+    res.render('pages/register', {message: message});
 });
 
-router.post("/registerUser", (req, res, next) => {
+router.post("/registerUser", isRegistered, (req, res, next) => {
 
-    return db.pool.query(`INSERT INTO user_data (name, email, password) 
+    const { email, password } = req.body;
+    console.log(email, password);
+
+
+    try {
+        if (req.session.uniqueEmailForRegistration == true) {
+            db.pool.query(`INSERT INTO user_data (name, email, password) 
     VALUES ("${req.body.name}", "${req.body.email}", "${req.body.password}")`, (err, result) => {
-        console.log(req.body)
-        if (err) throw err;
-        else {
-            res.render("pages/login", {message: `Welcome, ${req.body.name}. Login to access your new account`});
+                console.log(req.body)
+                if (err) throw err;
+                else {
+                    //set up an empty currentUser for the time being;
+                    req.session.currentUser = {};
+                    req.session.currentUser.messageAfterRegistering = `Welcome, ${req.body.name}. Login to access your new account`
+                    res.redirect("/login")
+                }
+            });
+        } else if (uniqueEmailForRegistration == false) {
+            res.session.message = "Email already registered"
+            res.redirect("/login")
         }
-    });
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 
 
 router.get('/students', function (req, res, next) {
-    res.render('pages/students');
+    var message;
+    if (req.session.message) {
+        if (req.session.message.includes("not made posts")) {
+            message = req.session.message;
+            res.render('pages/students', { message: message })
+        } else {
+            message = req.session.message
+            res.render("pages/students", { message: message })
+        }
+        //} else if (req.session.uniqueEmailForRegistration == undefined) {
+        //    res.render("pages/students")
+        //} else if (req.session.uniqueEmailForRegistration == true) {
+        //    message = "Not a registered email"
+        //    delete req.session.uniqueEmailForRegistration;
+        //    res.render('pages/students', {message: message})
+    }  else {
+        res.render('pages/students', {message: message});
+    }
 });
 
-router.get("/teachers", isLoggedIn, function (req, res, next) {
-    res.render("pages/teachers");
+router.get("/teachers", isLoggedIn, homeMessage, function (req, res, next) {
+    var message = "false"
+    if (req.session.currentUser.messageForLoggingIn) {
+        message = req.session.currentUser.messageForLoggingIn;
+    }
+    res.render("pages/teachers", {message: message});
 })
 
 router.post("/teachers", isLoggedIn, function (req, res, next) {
@@ -130,7 +184,7 @@ router.post("/teachers", isLoggedIn, function (req, res, next) {
                 console.log("success")
                 res.render("pages/teachers", message);
             }
-    });
+    })
 })
 
 router.get("/getPosts", (req, res, next) => {
@@ -173,9 +227,10 @@ router.get("/getPostsForStudents", (req, res, next) => {
             if (error) {
                 console.log(error);
             } else if (results.length === 0) {
-                message = { message: "Not a registered teacher email or teacher has not made a post yet" }
+                var message = "Teacher has not made a post yet" 
+                req.session.message = message
                 console.log(message);
-                res.render("pages/students", message)
+                res.send(message);
             } else if (results.length > 0) {
                 console.log(results)
                 res.send(results);

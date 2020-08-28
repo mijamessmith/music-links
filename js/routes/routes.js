@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require("../controller/db")
 const bcrypt = require("bcryptjs")
 const passwordValidator = require('password-validator');
+const identicon = require('identicon')
 
 //create password Schema
 
@@ -342,6 +343,17 @@ router.get("/getPostsForStudents", (req, res, next) => {
     } catch (error) {
         console.log(error)
     }
+})
+
+
+
+router.get('/profile', async function (req, res, next) {
+    var message = "asdf154"
+    res.render('pages/profile', { message: message });
+})
+
+router.get("/getImg", async function (req, res, next) {
+
 })
 
 

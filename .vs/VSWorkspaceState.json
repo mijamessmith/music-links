@@ -4,9 +4,11 @@
     "\\js",
     "\\js\\routes",
     "\\views",
+    "\\views\\css",
     "\\views\\pages",
-    "\\views\\pages\\scripts"
+    "\\views\\pages\\scripts",
+    "\\views\\partials"
   ],
-  "SelectedNode": "\\package.json",
+  "SelectedNode": "\\views\\pages\\scripts\\teacher-script.js",
   "PreviewInSolutionExplorer": false
 }

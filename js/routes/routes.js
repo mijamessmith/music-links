@@ -2,6 +2,21 @@ const express = require("express");
 const router = express.Router();
 const db = require("../controller/db")
 const bcrypt = require("bcryptjs")
+const passwordValidator = require('password-validator');
+
+//create password Schema
+
+var schema = new passwordValidator();
+
+// Add properties to it
+
+    schema.is().min(7)                                    // Minimum length 7
+    schema.is().max(64)                                  // Maximum length 64
+    schema.has().uppercase()                              // Must have uppercase letters
+    schema.has().lowercase()                              // Must have lowercase letters
+    schema.has().digits(2)                                // Must have at least 2 digits
+    schema.has().not().spaces()                           // Should not have spaces
+
 //middleware functions
 
 // checking if teachers are logged in 
@@ -156,7 +171,7 @@ router.post("/loginUser", async (req, res, next) => {
 router.get('/register', alreadyLoggedIn, function (req, res, next) {
     var message;
     if (req.session.message) {
-        if (req.session.message.includes("did not match") || req.session.message.includes("already registered")) {
+        if (req.session.message.includes("did not match") || req.session.message.includes("already registered") || req.session.message.includes("password must be")) {
             message = req.session.message;
         }
     }
@@ -169,6 +184,9 @@ router.post("/registerUser", async (req, res, next) => {
         const { email, password, confirmPassword, name } = req.body;
         if (confirmPassword !== password) {
             req.session.message = "passwords did not match"
+            return res.redirect("/register");
+        } else if (!schema.validate(password)) {
+            req.session.message = "password must be 7-64 characters long, have no spaces, and contain at least 2 numbers and an upper and lowercase letter"
             return res.redirect("/register");
         }
         return db.pool.query(`SELECT * FROM user_data WHERE email = "${req.body.email || req.query.email}"`, async (error, results) => {

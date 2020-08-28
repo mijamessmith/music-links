@@ -78,3 +78,7 @@
     background-color: unset !important;
     color: unset !important;
 }
+
+.footer-spacer {
+    padding: 10em;
+}
